@@ -82,7 +82,7 @@ struct nand_block {
     int npgs;
     int ipc; /* invalid page count */
     int vpc; /* valid page count */
-    int erase_cnt;
+    int erase_cnt; // nand_block erase count
     int wp; /* current write pointer */
 };
 
@@ -111,7 +111,7 @@ struct ssdparams {
     int secsz;        /* sector size in bytes */
     int secs_per_pg;  /* # of sectors per page */
     int pgs_per_blk;  /* # of NAND pages per block */
-    int blks_per_pl;  /* # of blocks per plane */
+    int ;  /* # of blocks per plane */
     int pls_per_lun;  /* # of planes per LUN (Die) */
     int luns_per_ch;  /* # of LUNs per channel */
     int nchs;         /* # of channels in the SSD */
@@ -154,6 +154,9 @@ struct ssdparams {
     int tt_pls;       /* total # of planes in the SSD */
 
     int tt_luns;      /* total # of LUNs in the SSD */
+
+    int gc_alpha;
+    int gc_beta;
 };
 
 typedef struct line {
@@ -163,6 +166,7 @@ typedef struct line {
     QTAILQ_ENTRY(line) entry; /* in either {free,victim,full} list */
     /* position in the priority queue for victim lines */
     size_t                  pos;
+    int line_erase_cnt; // 
 } line;
 
 /* wp: record next write addr */
